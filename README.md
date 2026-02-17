@@ -1,16 +1,53 @@
-# React + Vite
+# VIN Decoder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that allows users to decode a Vehicle Identification Number (VIN) using the NHTSA public API.
 
-Currently, two official plugins are available:
+## 🚀 Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live version:  
+https://vin-decoder-black.vercel.app/
 
-## React Compiler
+GitHub repository:  
+https://github.com/LuckySolomi/vin-decoder
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📌 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- VIN validation (17 characters, correct format)
+- VIN decoding via NHTSA API
+- Display decoded vehicle data (filtered from unnecessary fields)
+- Display API error messages in the UI
+- Store and display last 3 searched VINs (localStorage)
+- Variables page with full list of vehicle variables
+- Variable details page
+- Responsive design (mobile-friendly)
+- Clean UI with CSS Modules
+
+---
+
+## 🛠 Technologies Used
+
+- React
+- React Router
+- CSS Modules
+- LocalStorage
+- Fetch API
+- Vercel (deployment)
+
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/LuckySolomi/vin-decoder.git
+
+```
+
+Install dependencies:
+npm install
+
+Run locally:
+npm run dev
