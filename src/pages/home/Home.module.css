@@ -1,17 +1,18 @@
 .wrapper {
   max-width: 900px;
+  min-width: 320px;
   margin: 0 auto;
-  background: white;
   padding: 30px;
   border-radius: 12px;
+  background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .title {
+  margin-bottom: 25px;
+  text-align: center;
   font-size: 24px;
   font-weight: 700;
-  text-align: center;
-  margin-bottom: 25px;
 }
 
 .info {
@@ -20,9 +21,9 @@
 }
 
 .error {
+  font-weight: 500;
   text-align: center;
   color: red;
-  font-weight: 500;
 }
 
 @media (max-width: 600px) {
