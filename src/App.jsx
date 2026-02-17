@@ -1,20 +1,36 @@
 import { Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import Variables from "./pages/Variables";
-import VariableDetails from "./pages/VariableDetails";
+import Home from "./pages/home/Home";
+import Variables from "./pages/variables/Variables";
+import VariableDetails from "./pages/variableDetails/VariableDetails";
+import { NavLink } from "react-router-dom";
+import styles from "./App.module.css";
 
 function App() {
   return (
     <>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/variables">All Variables</Link>
-          <Link to="/variables/:id">Variable Details</Link>
+      <header className={styles.header}>
+        <nav className={styles.nav}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? styles.activeLink : styles.link
+            }
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/variables"
+            className={({ isActive }) =>
+              isActive ? styles.activeLink : styles.link
+            }
+          >
+            All Variables
+          </NavLink>
         </nav>
       </header>
 
-      <main>
+      <main className={styles.main}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/variables" element={<Variables />} />

@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  color: #222;
+}
+
+.header {
+  padding: 20px 0;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.link {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.link:hover {
+  color: #1976d2;
+}
+
+.activeLink {
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: 700;
+}
+
+.main {
+  padding: 40px 20px;
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 20px 10px;
+  }
+}
