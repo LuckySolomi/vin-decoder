@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { decodeVin } from "../services/api";
-import VinForm from "../components/VinForm";
-import VinResults from "../components/VinResults";
-import VinHistory from "../components/VinHistory";
+import { decodeVin } from "../../services/api";
+import VinForm from "../../components/vinForm/VinForm";
+import VinResults from "../../components/vinResults/VinResults";
+import VinHistory from "../../components/vinHistory/VinHistory";
+import styles from "./Home.module.css";
 
 function Home() {
   const [results, setResults] = useState([]);
@@ -51,15 +52,15 @@ function Home() {
   };
 
   return (
-    <section>
-      <h1>VIN Decoder</h1>
+    <section className={styles.wrapper}>
+      <h1 className={styles.title}>VIN Decoder</h1>
 
       <VinForm onDecode={handleDecode} />
 
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <p className={styles.info}>Loading...</p>}
+      {error && <p className={styles.error}>{error}</p>}
 
-      <VinHistory history={history} onSelect={handleDecode} />
+      <VinHistory history={history} />
       <VinResults results={results} />
     </section>
   );
