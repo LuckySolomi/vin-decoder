@@ -1,0 +1,18 @@
+import styles from "./VariableList.module.css";
+
+function VariableList({ variables }) {
+  return (
+    <div className={styles.wrapper}>
+      {variables.map((item) => (
+        <div key={item.ID} className={styles.card}>
+          <h3 className={styles.title}>{item.Name}</h3>
+          <p className={styles.description}>
+            {item.Description?.replace(/<[^>]+>/g, "")}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default VariableList;
