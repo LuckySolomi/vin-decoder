@@ -44,3 +44,21 @@
 .titleLink:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+  .wrapper {
+    padding: 15px 5px;
+  }
+
+  .card {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+}

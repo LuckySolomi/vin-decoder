@@ -1,4 +1,5 @@
 body {
+  min-width: 320px;
   margin: 0;
   font-family: "Roboto", sans-serif;
   color: #222;
@@ -20,6 +21,7 @@ body {
 .link {
   text-decoration: none;
   color: #555;
+  font-size: 16px;
   font-weight: 500;
   transition: 0.2s ease;
 }
@@ -41,5 +43,18 @@ body {
 @media (max-width: 600px) {
   .main {
     padding: 20px 10px;
+  }
+
+  .header {
+    padding: 15px 0;
+    wrap: nowrap;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+
+  .activeLink {
+    font-size: 14px;
   }
 }

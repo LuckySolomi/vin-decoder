@@ -14,7 +14,8 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: 20px;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
@@ -46,26 +47,34 @@
 }
 
 @media (max-width: 600px) {
+  .wrapper {
+    padding: 15px 5px;
+  }
+
   .card {
-    padding: 20px;
+    padding: 12px 16px;
   }
 
   .title {
-    font-size: 22px;
+    font-size: 16px;
   }
 
   .description {
+    font-size: 13px;
+  }
+
+  .backLink {
     font-size: 14px;
   }
-}
 
-.info {
-  text-align: center;
-  margin-top: 40px;
-}
+  .info {
+    text-align: center;
+    margin-top: 40px;
+  }
 
-.error {
-  text-align: center;
-  color: red;
-  margin-top: 40px;
+  .error {
+    text-align: center;
+    color: red;
+    margin-top: 40px;
+  }
 }
