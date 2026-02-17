@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styles from "./VariableList.module.css";
 
 function VariableList({ variables }) {
@@ -5,7 +6,12 @@ function VariableList({ variables }) {
     <div className={styles.wrapper}>
       {variables.map((item) => (
         <div key={item.ID} className={styles.card}>
-          <h3 className={styles.title}>{item.Name}</h3>
+          <h3>
+            <NavLink to={`/variables/${item.ID}`} className={styles.titleLink}>
+              {item.Name}
+            </NavLink>
+          </h3>
+
           <p className={styles.description}>
             {item.Description?.replace(/<[^>]+>/g, "")}
           </p>

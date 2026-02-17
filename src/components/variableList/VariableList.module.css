@@ -13,6 +13,11 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
+.card:hover {
+  transform: translateY(-2px);
+  transition: 0.2s ease;
+}
+
 .title {
   margin-bottom: 10px;
   font-size: 18px;
@@ -25,4 +30,15 @@
   color: #555;
   white-space: normal;
   word-wrap: break-word;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
 }
