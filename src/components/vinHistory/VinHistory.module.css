@@ -1,0 +1,29 @@
+.wrapper {
+  margin-top: 20px;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #f1f4f8;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .item {
+    font-size: 13px;
+  }
+}
