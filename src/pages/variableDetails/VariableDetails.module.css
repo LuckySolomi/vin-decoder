@@ -26,8 +26,6 @@
 
 .description {
   line-height: 1.7;
-  max-height: 120px;
-  overflow: hidden;
   font-size: 16px;
   color: #444;
   word-break: break-word;

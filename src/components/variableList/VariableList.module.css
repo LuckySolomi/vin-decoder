@@ -25,11 +25,13 @@
 }
 
 .description {
-  font-size: 14px;
   line-height: 1.6;
+  max-height: 120px;
+  overflow: hidden;
   color: #555;
   white-space: normal;
   word-wrap: break-word;
+  font-size: 14px;
 }
 
 .titleLink {
