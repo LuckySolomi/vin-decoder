@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { validateVin } from "../utils/validation";
+import { validateVin } from "../../utils/validation";
+import styles from "./VinForm.module.css";
 
 function VinForm({ onDecode }) {
   const [vin, setVin] = useState("");
@@ -20,18 +21,21 @@ function VinForm({ onDecode }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
         value={vin}
         onChange={(e) => setVin(e.target.value.toUpperCase())}
         maxLength={17}
         placeholder="Enter VIN"
+        className={styles.input}
       />
 
-      <button type="submit">Decode</button>
+      <button type="submit" className={styles.button}>
+        Decode
+      </button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
     </form>
   );
 }
