@@ -2,7 +2,7 @@
 
 A React application that allows users to decode a Vehicle Identification Number (VIN) using the NHTSA public API.
 
-## 🚀 Demo
+## Demo
 
 Live version:  
 https://vin-decoder-black.vercel.app/
@@ -12,7 +12,7 @@ https://github.com/LuckySolomi/vin-decoder
 
 ---
 
-## 📌 Features
+## Features
 
 - VIN validation (17 characters, correct format)
 - VIN decoding via NHTSA API
@@ -26,7 +26,7 @@ https://github.com/LuckySolomi/vin-decoder
 
 ---
 
-## 🛠 Technologies Used
+## Technologies Used
 
 - React
 - React Router
@@ -37,7 +37,7 @@ https://github.com/LuckySolomi/vin-decoder
 
 ---
 
-## 📦 Installation
+## Installation
 
 Clone the repository:
 
