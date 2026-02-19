@@ -47,7 +47,14 @@ git clone https://github.com/LuckySolomi/vin-decoder.git
 ```
 
 Install dependencies:
+```bash
 npm install
 
+```
+
 Run locally:
+```bash
 npm run dev
+
+```
+
