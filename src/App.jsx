@@ -1,11 +1,24 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { getVariables } from "./services/api";
 import Home from "./pages/home/Home";
 import Variables from "./pages/variables/Variables";
 import VariableDetails from "./pages/variableDetails/VariableDetails";
-import { NavLink } from "react-router-dom";
 import styles from "./App.module.css";
 
 function App() {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ["variables"],
+      queryFn: getVariables,
+      staleTime: 1000 * 60 * 5,
+    });
+  }, [queryClient]);
+
   return (
     <>
       <header className={styles.header}>
