@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getVariables } from "../../services/api";
 import VariableList from "../../components/variableList/VariableList";
 import styles from "./Variables.module.css";
 
 export default function Variables() {
-  const [variables, setVariables] = useState([]);
+  const {
+    data: variables = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["variables"],
+    queryFn: getVariables,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getVariables();
-      setVariables(data);
-    };
-    fetchData();
-  }, []);
+  if (isLoading) return <p>Loading variables...</p>;
+
+  if (error) return <p>Failed to load variables</p>;
 
   return (
     <div>
