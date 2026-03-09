@@ -10,7 +10,7 @@ export async function decodeVin(vin) {
   return response.json();
 }
 
-export async function getAllVariables() {
+export async function getVariables() {
   const response = await fetch(
     `${BASE_URL}/getvehiclevariablelist?format=json`,
   );
@@ -19,13 +19,6 @@ export async function getAllVariables() {
     throw new Error("Failed to fetch variables");
   }
 
-  return response.json();
-}
-
-export const getVariables = async () => {
-  const response = await fetch(
-    "https://vpic.nhtsa.dot.gov/api/vehicles/getvehiclevariablelist?format=json",
-  );
   const data = await response.json();
   return data.Results;
-};
+}
