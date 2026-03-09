@@ -1,33 +1,30 @@
-import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useParams, NavLink } from "react-router-dom";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getVariables } from "../../services/api";
 import styles from "./VariableDetails.module.css";
 
 function VariableDetails() {
   const { id } = useParams();
-  const [variable, setVariable] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchVariable = async () => {
-      try {
-        const data = await getVariables();
+  const {
+    data: variables = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["variables"],
+    queryFn: getVariables,
+    staleTime: 1000 * 60 * 5,
+  });
 
-        const found = data.find((item) => String(item.ID) === id);
+  const variable = useMemo(
+    () => variables.find((item) => String(item.ID) === id),
+    [variables, id],
+  );
 
-        setVariable(found || null);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (isLoading) return <p className={styles.info}>Loading...</p>;
 
-    fetchVariable();
-  }, [id]);
-
-  if (loading) return <p className={styles.info}>Loading...</p>;
+  if (error) return <p className={styles.error}>Failed to load variable</p>;
 
   if (!variable) return <p className={styles.error}>Variable not found</p>;
 
