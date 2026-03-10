@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import { decodeVin } from "../services/api";
 
 function getInitialHistory() {
@@ -46,12 +46,14 @@ function reducer(state, action) {
 
 export function useVinDecoder() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const requestIdRef = useRef(0);
 
   const handleDecode = async (vin) => {
+    if (state.loading) return;
+    const requestId = ++requestIdRef.current;
+
     const ONE_DAY = 1000 * 60 * 60 * 24;
-
     const cached = state.history.find((item) => item.vin === vin);
-
     if (cached && Date.now() - cached.timestamp < ONE_DAY) {
       dispatch({ type: "SET_RESULTS", payload: cached.data });
       return;
@@ -59,8 +61,8 @@ export function useVinDecoder() {
 
     try {
       dispatch({ type: "START_LOADING" });
-
       const data = await decodeVin(vin);
+      if (requestId !== requestIdRef.current) return;
 
       if (data.Message) {
         const shortMessage = data.Message.split(". ")[0] + ".";
@@ -106,7 +108,9 @@ export function useVinDecoder() {
         payload: "Failed to fetch data. Please try again.",
       });
     } finally {
-      dispatch({ type: "STOP_LOADING" });
+      if (requestId === requestIdRef.current) {
+        dispatch({ type: "STOP_LOADING" });
+      }
     }
   };
 
