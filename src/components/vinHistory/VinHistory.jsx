@@ -8,8 +8,8 @@ function VinHistory({ history }) {
       <h3 className={styles.title}>Recent Searches</h3>
       <ul className={styles.list}>
         {history.map((vin) => (
-          <li key={vin} className={styles.item}>
-            {vin}
+          <li key={vin.vin} className={styles.item}>
+            {vin.vin}
           </li>
         ))}
       </ul>

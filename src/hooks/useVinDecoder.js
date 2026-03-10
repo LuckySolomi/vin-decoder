@@ -1,80 +1,117 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import { decodeVin } from "../services/api";
 
-export function useVinDecoder() {
-  const [results, setResults] = useState([]);
-  const [error, setError] = useState("");
-  const [apiMessage, setApiMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  function getInitialHistory() {
-    try {
-      const saved = localStorage.getItem("vinHistory");
-
-      if (!saved) return [];
-
-      return JSON.parse(saved);
-    } catch {
-      localStorage.removeItem("vinHistory");
-      return [];
-    }
+function getInitialHistory() {
+  try {
+    const saved = localStorage.getItem("vinHistory");
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    localStorage.removeItem("vinHistory");
+    return [];
   }
-  const [history, setHistory] = useState(getInitialHistory);
+}
+
+const initialState = {
+  results: [],
+  error: "",
+  apiMessage: "",
+  loading: false,
+  history: getInitialHistory(),
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "START_LOADING":
+      return { ...state, loading: true, error: "", apiMessage: "" };
+
+    case "SET_RESULTS":
+      return { ...state, results: action.payload };
+
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
+
+    case "SET_MESSAGE":
+      return { ...state, apiMessage: action.payload };
+
+    case "SET_HISTORY":
+      return { ...state, history: action.payload };
+
+    case "STOP_LOADING":
+      return { ...state, loading: false };
+
+    default:
+      return state;
+  }
+}
+
+export function useVinDecoder() {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleDecode = async (vin) => {
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    const cached = state.history.find((item) => item.vin === vin);
+
+    if (cached && Date.now() - cached.timestamp < ONE_DAY) {
+      dispatch({ type: "SET_RESULTS", payload: cached.data });
+      return;
+    }
+
     try {
-      setError("");
-      setApiMessage("");
-      setLoading(true);
+      dispatch({ type: "START_LOADING" });
 
       const data = await decodeVin(vin);
 
       if (data.Message) {
         const shortMessage = data.Message.split(". ")[0] + ".";
-        setApiMessage(shortMessage);
+        dispatch({ type: "SET_MESSAGE", payload: shortMessage });
       }
 
       if (!data.Results) {
-        setError("Unexpected API response");
+        dispatch({ type: "SET_ERROR", payload: "Unexpected API response" });
         return;
       }
 
-      const excludedVariables = [
-        "Error Code",
-        "Error Text",
-        "Suggested VIN",
-        "Possible Values",
-        "Additional Error Text",
-      ];
-
       const filtered = data.Results.filter(
-        (item) =>
-          item.Value &&
-          item.Value !== "Not Applicable" &&
-          !excludedVariables.includes(item.Variable),
+        (item) => item.Value && item.Value !== "Not Applicable",
       );
 
       if (!filtered.length) {
-        setError("No valid data found for this VIN");
-        setResults([]);
+        dispatch({
+          type: "SET_ERROR",
+          payload: "No valid data found for this VIN",
+        });
+        dispatch({ type: "SET_RESULTS", payload: [] });
         return;
       }
 
-      setResults(filtered);
+      dispatch({ type: "SET_RESULTS", payload: filtered });
 
-      setHistory((prev) => {
-        const updated = [vin, ...prev.filter((item) => item !== vin)];
-        const limited = updated.slice(0, 3);
-        localStorage.setItem("vinHistory", JSON.stringify(limited));
-        return limited;
+      const updatedHistory = [
+        { vin, data: filtered, timestamp: Date.now() },
+        ...state.history.filter((item) => item.vin !== vin),
+      ].slice(0, 3);
+
+      localStorage.setItem("vinHistory", JSON.stringify(updatedHistory));
+
+      dispatch({
+        type: "SET_HISTORY",
+        payload: updatedHistory,
       });
     } catch (err) {
       console.error(err);
-      setError("Failed to fetch data. Please try again.");
+
+      dispatch({
+        type: "SET_ERROR",
+        payload: "Failed to fetch data. Please try again.",
+      });
     } finally {
-      setLoading(false);
+      dispatch({ type: "STOP_LOADING" });
     }
   };
 
-  return { results, error, apiMessage, loading, history, handleDecode };
+  return {
+    ...state,
+    handleDecode,
+  };
 }
