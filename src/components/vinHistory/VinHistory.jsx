@@ -1,6 +1,6 @@
 import styles from "./VinHistory.module.css";
 
-function VinHistory({ history }) {
+function VinHistory({ history, setVin }) {
   const validHistory = history.filter((item) => item?.vin);
 
   if (!validHistory.length) return null;
@@ -11,8 +11,13 @@ function VinHistory({ history }) {
 
       <ul className={styles.list}>
         {validHistory.map((item) => (
-          <li key={item.vin} className={styles.item}>
-            {item.vin}
+          <li key={item.vin}>
+            <button
+              className={styles.vinButton}
+              onClick={() => setVin(item.vin)}
+            >
+              {item.vin}
+            </button>
           </li>
         ))}
       </ul>

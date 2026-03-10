@@ -2,8 +2,7 @@ import { useState } from "react";
 import { validateVin } from "../../utils/validation";
 import styles from "./VinForm.module.css";
 
-function VinForm({ onDecode }) {
-  const [vin, setVin] = useState("");
+function VinForm({ vin, setVin, onDecode }) {
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
