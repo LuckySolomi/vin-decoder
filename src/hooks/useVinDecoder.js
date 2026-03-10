@@ -7,10 +7,19 @@ export function useVinDecoder() {
   const [apiMessage, setApiMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [history, setHistory] = useState(() => {
-    const saved = localStorage.getItem("vinHistory");
-    return saved ? JSON.parse(saved) : [];
-  });
+  function getInitialHistory() {
+    try {
+      const saved = localStorage.getItem("vinHistory");
+
+      if (!saved) return [];
+
+      return JSON.parse(saved);
+    } catch {
+      localStorage.removeItem("vinHistory");
+      return [];
+    }
+  }
+  const [history, setHistory] = useState(getInitialHistory);
 
   const handleDecode = async (vin) => {
     try {
